@@ -26,6 +26,7 @@ All code, configs, and models produced for this application are owned by Aethrea
         - For the first MVP milestone, the application is only accessible through web browser, in next milestone we will deploy to a mobile app to be installed on apple/andriod mobile devices
 
 * Architecture Diagram
+  ![Arch Diagram](arch-diagram.png)
 * Technical Notes
     - Database credintials are stored in AWS Secret Manager
     - lambda functino uses environment varials to store database host/username/password
