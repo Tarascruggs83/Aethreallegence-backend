@@ -20,12 +20,13 @@ The system addresses failures in traditional POS-, RFID-, and scan-based systems
 
 The system maintains an inventory state ledger that represents inventory at the SKU and zone level, rather than at the individual item identity level.
 Each ledger entry includes:
-• SKU identifier
-• Zone identifier
-• Quantity estimate
-• Associated confidence value
-• Timestamp of last corroboration
-Inventory records are treated as provisional beliefs, not authoritative truth.
+
+- SKU identifier
+- Zone identifier
+- Quantity estimate
+- Associated confidence value
+- Timestamp of last corroboration
+  Inventory records are treated as provisional beliefs, not authoritative truth.
 
 ### Event Processing vs State Truth
 
@@ -35,36 +36,40 @@ Instead, events are evaluated against the current inventory state and used to re
 ### Confidence Evaluation and Decay
 
 Each inventory state entry includes a confidence value that:
-• Increases when corroborating evidence is observed
-• Decays over time when evidence is absent
-• Drops sharply when contradictory evidence is detected
-When confidence falls below a threshold, the system triggers exception workflows.
+
+- Increases when corroborating evidence is observed
+- Decays over time when evidence is absent
+- Drops sharply when contradictory evidence is detected
+  When confidence falls below a threshold, the system triggers exception workflows.
 
 ### Exception-Only Compute Model
 
 Unlike systems that continuously track all items, Aethreallegence:
-• Suppresses processing for high-confidence states
-• Processes only anomalies and uncertainty
-• Generates corrective actions only when needed
-This allows the system to scale to thousands of SKUs without linear growth in compute or bandwidth.
+
+- Suppresses processing for high-confidence states
+- Processes only anomalies and uncertainty
+- Generates corrective actions only when needed
+  This allows the system to scale to thousands of SKUs without linear growth in compute or bandwidth.
 
 ### Correction and Learning Boundary
 
 Corrective actions may include:
-• Human confirmation
-• Voice-based verification
-• Targeted rescan or review
-Only validated corrections are allowed to update machine learning models.
-Raw observations never directly trigger learning.
-This prevents model drift and preserves auditability.
+
+- Human confirmation
+- Voice-based verification
+- Targeted rescan or review
+  Only validated corrections are allowed to update machine learning models.
+  Raw observations never directly trigger learning.
+  This prevents model drift and preserves auditability.
 
 ### Implementation Independence
 
 While the current MVP implementation uses:
-• AWS Lambda
-• API Gateway
-• RDS databases
-The claimed invention is implementation-agnostic and applies to any distributed computing environment capable of maintaining inventory state, confidence evaluation, and exception-driven correction.
+
+- AWS Lambda
+- API Gateway
+- RDS databases
+  The claimed invention is implementation-agnostic and applies to any distributed computing environment capable of maintaining inventory state, confidence evaluation, and exception-driven correction.
 
 ### AWS services
 
